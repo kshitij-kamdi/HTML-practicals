@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elements of HTML</title>
+</head>
+
+<body>
+    <h1>Please fill up this HTML form</h1>
+
+    <form action="response.html" target="_blank" method="get">
+        <fieldset>
+            <legend>Personal information</legend>
+
+            <label for="name">Name:</label>
+            <input id="name" type="text" name="name" placeholder="Enter your name"><br>
+
+            <label for="phone">Phone no:</label>
+            <input id="phone" type="tel" phone no="phone" placeholder="Enter your phone no."><br>
+
+            <label for="email">Email:</label>
+            <input id="email" type="email" email="email" placeholder="Enter your email"><br>
+
+            <select id="gender" name="gender">
+                <option value="select gender">select gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select>
+        </fieldset>
+
+        <fieldset>
+            <legend> Personal Preferences</legend>
+
+            <label for="category">Choose a college:</label>
+            <select id="category" name="category" size="3" multiple>
+                <optgroup label="colleges">
+                    <option value="ycce">YCCE</option>
+                    <option value="vnit">VNIT</option>
+                    <option value="randeo baba">Ramdeo baba</option>
+            </select>
+            <br>
+            <br>
+            <label for="branch">Preferred Branch:</label>
+            <input list="branch" id="branch" name="branch">
+            <datalist id="branch">
+                <option value="CS">computer science</option>
+                <option value="CT">computer technology</option>
+                <option value="aids">AIDS</option>
+                <option value="electrical">Electrical</option>
+            </datalist>
+        </fieldset>
+
+        <fieldset>
+            <legend>Query/help</legend>
+
+            <label for="">your question:</label>
+            <textarea id="feedback" name="feedback" rows="4" cols="40"
+                placeholder="Write your query here..."></textarea>
+        </fieldset>
+
+        <button type="submit">submit form</button>
+        <!-- <a href="response.html" target="_blank">Open response page in new tab</a> -->
+
+    </form>
+</body>
+
+</html>

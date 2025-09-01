@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>HTML-Javascript with Json</title>
+    <!-- <link rel="stylesheet" href="style.css"> -->
+
+    <style>
+        /* ---------- Blue Theme (CSS Variables) ---------- */
+        :root {
+            --bg: #f5f9ff;
+            --bg-2: #e9f1ff;
+            --text: #0a1b3f;
+            --muted: #4a5a7a;
+            --primary: #2563eb;
+            /* main blue */
+            --primary-600: #1d4ed8;
+            --primary-700: #1e40af;
+            --accent: #38bdf8;
+            /* sky blue accent */
+            --ring: rgba(37, 99, 235, .25);
+            --card: #ffffff;
+            --border: #cfe0ff;
+            --shadow: 0 8px 30px rgba(37, 99, 235, .12);
+        }
+
+        /* Auto dark mode (still blue!) */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #0b1020;
+                --bg-2: #0f1a36;
+                --text: #eaf1ff;
+                --muted: #b9c6e4;
+                --card: #0f1a36;
+                --border: #254a9a;
+                --shadow: 0 12px 36px rgba(2, 6, 23, .6);
+            }
+        }
+
+        /* ---------- Base ---------- */
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            color: var(--text);
+            background:
+                radial-gradient(1200px 600px at 10% -10%, var(--bg-2), transparent 60%),
+                radial-gradient(800px 400px at 110% 10%, var(--bg-2), transparent 50%),
+                var(--bg);
+            line-height: 1.6;
+        }
+
+        /* ---------- Heading ---------- */
+        h1 {
+            max-width: 1200px;
+            margin: clamp(16px, 3vw, 28px) auto 10px;
+            padding: 16px clamp(12px, 2vw, 18px);
+            font-size: clamp(1.6rem, 1.1rem + 1.5vw, 2.4rem);
+            font-weight: 800;
+            letter-spacing: .2px;
+            color: var(--primary-700);
+            background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* ---------- Book List Grid ---------- */
+        #bookList {
+            max-width: 1200px;
+            margin: 0 auto clamp(28px, 4vw, 44px);
+            padding: 0 clamp(12px, 2vw, 18px) clamp(20px, 3vw, 28px);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+            gap: clamp(14px, 2.5vw, 24px);
+        }
+
+        /* ---------- Book Card ---------- */
+        .book {
+            position: relative;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 16px 16px 18px;
+            box-shadow: var(--shadow);
+            transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+            overflow: clip;
+            isolation: isolate;
+        }
+
+        /* Subtle left accent bar */
+        .book::before {
+            content: "";
+            position: absolute;
+            inset: 0 auto 0 0;
+            width: 6px;
+            background: linear-gradient(180deg, var(--primary), var(--accent));
+            opacity: .9;
+        }
+
+        /* Hover lift + glowing ring */
+        .book:hover {
+            transform: translateY(-4px);
+            border-color: color-mix(in oklab, var(--primary) 35%, var(--border));
+            box-shadow: 0 18px 40px rgba(37, 99, 235, .18);
+        }
+
+        /* Focus-visible for keyboard users */
+        .book:focus-within {
+            outline: 3px solid var(--ring);
+            outline-offset: 3px;
+            transform: translateY(-2px);
+        }
+
+        /* ---------- Typography inside card ---------- */
+        .book h3 {
+            margin: 4px 0 10px 10px;
+            font-size: clamp(1.05rem, .95rem + .5vw, 1.4rem);
+            font-weight: 750;
+            color: var(--primary-600);
+            line-height: 1.25;
+            position: relative;
+        }
+
+        /* Animated underline on hover */
+        .book h3::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -6px;
+            height: 3px;
+            width: 0%;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transition: width .35s ease;
+            border-radius: 2px;
+        }
+
+        .book:hover h3::after {
+            width: 80%;
+        }
+
+        .book p {
+            margin: 8px 0;
+            color: var(--muted);
+            font-size: .98rem;
+        }
+
+        .book p strong {
+            color: var(--text);
+            font-weight: 700;
+        }
+
+        /* Make numbers (ISBN, dates) tidy */
+        .book p:nth-child(n) {
+            font-variant-numeric: tabular-nums lining-nums;
+        }
+
+        /* ---------- Small interactive flair (pure CSS) ---------- */
+        /* Subtle pulse on card when hovering the container */
+        #bookList:hover .book {
+            transition-duration: .22s;
+        }
+
+        #bookList:hover .book:hover {
+            transform: translateY(-6px) scale(1.01);
+        }
+
+        /* ---------- Utilities ---------- */
+        @media (max-width: 520px) {
+            .book {
+                padding: 14px 14px 16px;
+            }
+
+            .book::before {
+                width: 4px;
+            }
+        }
+
+        /* Better printing layout */
+        @media print {
+            body {
+                background: #fff;
+            }
+
+            .book {
+                break-inside: avoid;
+                box-shadow: none;
+                border-color: #89a9ff;
+            }
+
+            #bookList {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>My favourite Books</h1>
+    <div id="bookList"></div>
+
+    <script>
+        const bookData = {
+            "books": [
+                {
+                    "title": "Clean Code",
+                    "author": "Robert C. Martin",
+                    "edition": "1st",
+                    "isbn": "978-0132350884",
+                    "publishing_date": "11-01-2008",
+                    "publishing_house": "Prentice Hall"
+                },
+                {
+                    "title": "You Don't Know JS Yet",
+                    "author": "Kyle Simpson",
+                    "edition": "2nd",
+                    "isbn": "978-1098112480",
+                    "publishing_date": "28-01-2020",
+                    "publishing_house": "O'Reilly Media"
+                },
+                {
+                    "title": "Eloquent JavaScript",
+                    "author": "Marijn Haverbeke",
+                    "edition": "3rd",
+                    "isbn": "978-1593279509",
+                    "publishing_date": "04-12-2024",
+                    "publishing_house": "No Starch Press"
+                },
+                {
+                    "title": "Introduction to Algorithms",
+                    "author": "Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest & Clifford Stein",
+                    "edition": "4th Edition",
+                    "isbn": "978-0-262-04630-5",
+                    "publishing_date": "03-04-2022",
+                    "publishing_house": "MIT Press"
+                },
+                {
+                    "title": "The AWK Programming Language",
+                    "author": "Alfred V. Aho, Brian W. Kernighan, Peter J. Weinberger",
+                    "edition": "2nd Edition",
+                    "isbn": "978-0201079814",
+                    "publishing_date": "06-09-2023",
+                    "publishing_house": "Addison-Wesley Professional"
+                }
+            ]
+        };
+
+        const container = document.getElementById("bookList");
+
+        bookData.books.forEach(book => {
+            const bookDiv = document.createElement("div");
+            bookDiv.className = "book";
+            bookDiv.innerHTML = `
+                <h3>${book.title}</h3>
+                <p><strong>Author:</strong> ${book.author}</p>
+                <p><strong>Edition:</strong> ${book.edition}</p>
+                <p><strong>ISBN:</strong> ${book.isbn}</p>
+                <p><strong>Publishing Date:</strong> ${book.publishing_date}</p>
+                <p><strong>Publishing House:</strong> ${book.publishing_house}</p>
+            `;
+            container.appendChild(bookDiv);
+        });
+    </script>
+
+</body>
+
+</html>

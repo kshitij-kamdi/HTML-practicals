@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="students.xsl"?>
+<!DOCTYPE students SYSTEM "students.dtd">
+<students>
+    <student student_id="S101">
+        <name>Kshitij Kamdi</name>
+        <course>Computer Science</course>
+        <email>kshitij@Kamdi.com</email>
+    </student>
+    <student student_id="S102">
+        <name>Ojas Rahate</name>
+        <course>Mechanical Engineering</course>
+        <email>Ojas@Rahate.com</email>
+    </student>
+    <student student_id="S103">
+        <name>Sanket Dhobale</name>
+        <course>Business Administration</course>
+        <email>Sanket@Dhobale.com</email>
+    </student>
+</students>

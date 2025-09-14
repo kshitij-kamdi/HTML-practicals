@@ -1,0 +1,8 @@
+<!ELEMENT employees (employee+)>
+<!ELEMENT employee (employee_id, name, department, designation, email, salary)>
+<!ELEMENT employee_id (#PCDATA)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT department (#PCDATA)>
+<!ELEMENT designation (#PCDATA)>
+<!ELEMENT email (#PCDATA)>
+<!ELEMENT salary (#PCDATA)>

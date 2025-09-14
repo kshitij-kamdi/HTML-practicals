@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="employee.xsl"?>
+<!DOCTYPE employees SYSTEM "employee.dtd">
+<employees>
+    <employee>
+        <employee_id>E1001</employee_id>
+        <name>ojas Rahate</name>
+        <department>Sales</department>
+        <designation>Manager</designation>
+        <email>Ojas@Rahate.com</email>
+        <salary>75000</salary>
+    </employee>
+    <employee>
+        <employee_id>E1002</employee_id>
+        <name>Sanket Dhobale</name>
+        <department>Marketing</department>
+        <designation>Analyst</designation>
+        <email>Sanket@Dhobale.com</email>
+        <salary>60000</salary>
+    </employee>
+    <employee>
+        <employee_id>E1003</employee_id>
+        <name>Kshitij Kamdi</name>
+        <department>IT</department>
+        <designation>Developer</designation>
+        <email>Kshitij@Kamdi.com</email>
+        <salary>80000</salary>
+    </employee>
+</employees>
